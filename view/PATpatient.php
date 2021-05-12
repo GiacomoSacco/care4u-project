@@ -12,7 +12,7 @@
             - visualizza misurazioni del paziente
             - visualizza account paziente
             - logout paziente
-            - inserisci nuova misurazione  
+            - inserisci nuova misurazione   
         -->
         <!-- insert measurement -->
 

@@ -10,69 +10,62 @@
         <a href="?page=createUser">Create new User</a>
         <h1>Link patients and doctors</h1>
 
-        <!-- doctors and patients -->
-        <div id="doctors">
+        <!-- doctors -->
+        <div id="doctorForm">
+            <p>Select the doctor to add/remove patients:</p>
             <form action="" method="POST">
             <?php
                 if(!isset($_POST["doctor"])){
-                    //legenda
-                    echo "<p>Select the doctor you want to link a patient with</p>";
-                    //printing doctors
+                    //doctors form
                     foreach($doctors as $doctor){
                         echo "<input type='radio' id='doctor' name='doctor' value='{$doctor->iduse}' onclick='this.form.submit();'>";
                         echo "<label for='{$doctor->iduse}'>{$doctor->name} {$doctor->surname}</label><br>";
                     }
-                }else{
+                }
+            ?>
+            <!-- <input type="submit"> -->
+            </form>
+        </div> 
+        <div id="unlinkedPatients">
+            <form action="" method="POST">
+            <?php
+                //UNLINKED patientes
+                if(isset($_POST["doctor"])){
                     //legenda
-                    echo "<p>Select the patient you want to link with the doctor <b>".$doctor_sel->name." ".$doctor_sel->surname."</b></p>";
+                    echo "<p>UNLINKED patients with <b>".$selected_doctor->name." ".$selected_doctor->surname."</b>: (select ot ADD)</p>";
                     //hidden fields
                     echo "<input type='hidden' name='doctor' value='{$_POST['doctor']}'>";
-                    //printing patients
-                    foreach($patients as $patient){
+                    //printing patients unlinked
+                    foreach($unlinked_patients as $patient){
                         echo "<input type='radio' id='patient' name='patient' value='{$patient->iduse}' onclick='this.form.submit();'>";
                         echo "<label for='{$patient->iduse}'>{$patient->name} {$patient->surname}</label><br>";
                     }  
-                }
+                }    
                 
             ?>
-                <!-- <input type="submit"> -->
             </form>
         </div>
-        <div>
-            <form action='' method='POST'>
-                <?php
-                //legenda
-                echo "<p>Select the doctor you want to see the patients of</p>";
-                //printing doctors
-                foreach($doctors as $doctor){
-                    echo "<input type='radio' id='doctor' name='doctor_vis' value='{$doctor->iduse}' onclick='this.form.submit();'>";
-                    echo "<label for='{$doctor->iduse}'>{$doctor->name} {$doctor->surname}</label><br>";
-                }
-                //echo "<input type='submit'>"; 
-                ?>
-            </form>
-
-                <?php
-                if(isset($_POST["doctor_vis"])){
+        <div id="linkedPatients">
+            <?php
+                //LINKED patients
+                if(isset($_POST["doctor"])){
                     //legenda
-                    echo "<p>These are the patients of <b>".$doctor_sel->name." ".$doctor_sel->surname."</b>:</p>";
+                    echo "<p>LINKED patients with <b>".$selected_doctor->name." ".$selected_doctor->surname."</b>: (select to REMOVE)</p>";
                     //printing patients
-                    foreach($patients_vis as $patient){
-                        echo "<div>{$patient->name} {$patient->surname} ";
-                        echo "<form method='POST' action='' class='remform'>   
+                    foreach($linked_patients as $patient){
+                        echo "<form method='POST' action=''>   
                                 <input type='hidden' name='REMpatientid' value='{$patient->iduse}'>
-                                <input type='hidden' name='REMdoctorid' value='{$doctor_sel->iduse}'>
-                                <button type='submit'><i class='fa fa-close'></i></button>
+                                <input type='hidden' name='REMdoctorid' value='{$selected_doctor->iduse}'>
+                                <label for='delete'>{$patient->name} {$patient->surname}</label>
+                                <button name='delete' type='submit'><i class='fa fa-close'></i></button>
                               </form>";
-                        echo "</div>";
                     } 
+                    echo "<a href='?page=linkpatdoc'>CANCEL</a><br>";
                 } 
                 ?>
-                
-            
         </div>
         <!-- logout -->
-        <a href="?page=logout">LOGOUT</a>
+        <a href="?page=logout">LOGOUTTTTTTTTTTT</a>
 
         <script src="view/js/linkPatDoc.js"></script>
     </body>

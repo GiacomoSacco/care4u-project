@@ -15,7 +15,7 @@ class Model {
 	public function __construct()  
 	{  	
 		//Generating database connection when a Model object is created
-        $this->mysqli = new mysqli("localhost","root","","care4u");
+        $this->mysqli = new mysqli("localhost","root","","my_care4u");
 		if ($this->mysqli -> connect_errno) {
 			echo "Failed to connect to MySQL: " . $this->mysqli -> connect_error;
 			exit();

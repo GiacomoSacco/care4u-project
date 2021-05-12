@@ -43,15 +43,17 @@ class Controller {
 
 	public function link_patients_doctors(){
 		$this->loginCheck(self::ADMIN);
-
+		var_dump($_POST);
 		//ADD LINK
 		$doctors = $this->model->getUserByRole(self::DOCTOR);
 
 		if(isset($_POST["doctor"])){
 			//getting the patients not linked with the selected doctor
-			$patients = $this->model->getUnlinkedPatients($_POST["doctor"]);
+			$unlinked_patients = $this->model->getUnlinkedPatients($_POST["doctor"]);
+			//getting the patients  linked with the selected doctor
+			$linked_patients = $this->model->getLinkedPatients($_POST["doctor"]);
 			//getting selected doctor infos
-			$doctor_sel = $this->model->getUserById($_POST["doctor"]);
+			$selected_doctor = $this->model->getUserById($_POST["doctor"]);
 		}
 
 		//adding the link doctor-patient to the DB
@@ -63,12 +65,12 @@ class Controller {
 		//SEE LINKS
 
 		//getting data to print the doctor's patients
-		if(isset($_POST["doctor_vis"])){
-			//getting the patients not linked with the selected doctor
-			$patients_vis = $this->model->getLinkedPatients($_POST["doctor_vis"]);
-			//getting selected doctor infos
-			$doctor_sel = $this->model->getUserById($_POST["doctor_vis"]);
-		}
+		// if(isset($_POST["doctor_vis"])){
+		// 	//getting the patients not linked with the selected doctor
+		// 	$patients_vis = $this->model->getLinkedPatients($_POST["doctor_vis"]);
+		// 	//getting selected doctor infos
+		// 	$doctor_sel = $this->model->getUserById($_POST["doctor_vis"]);
+		// }
 
 		//REMOVE LINKS
 		if(isset($_POST["REMdoctorid"]) && isset($_POST["REMpatientid"])){
