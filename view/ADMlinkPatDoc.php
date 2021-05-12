@@ -8,7 +8,7 @@
 
     <body>  
         <a href="?page=createUser">Create new User</a>
-        <h1>Link patients and doctor</h1>
+        <h1>Link patients and doctors</h1>
 
         <!-- doctors and patients -->
         <div id="doctors">
@@ -19,39 +19,40 @@
                     echo "<p>Select the doctor you want to link a patient with</p>";
                     //printing doctors
                     foreach($doctors as $doctor){
-                        echo "<input type='radio' id='doctor' name='doctor' value='".$doctor->iduse."'>";
-                        echo "<label for='".$doctor->iduse."'>".$doctor->name." ".$doctor->surname."</label><br>";
+                        echo "<input type='radio' id='doctor' name='doctor' value='{$doctor->iduse}' onclick='this.form.submit();'>";
+                        echo "<label for='{$doctor->iduse}'>{$doctor->name} {$doctor->surname}</label><br>";
                     }
                 }else{
                     //legenda
                     echo "<p>Select the patient you want to link with the doctor <b>".$doctor_sel->name." ".$doctor_sel->surname."</b></p>";
                     //hidden fields
-                    echo "<input type='hidden' name='doctor' value='$_POST[doctor]'>";
+                    echo "<input type='hidden' name='doctor' value='{$_POST['doctor']}'>";
                     //printing patients
                     foreach($patients as $patient){
-                        echo "<input type='radio' id='patient' name='patient' value='".$patient->iduse."'>";
-                        echo "<label for='".$patient->iduse."'>".$patient->name." ".$patient->surname."</label><br>";
+                        echo "<input type='radio' id='patient' name='patient' value='{$patient->iduse}' onclick='this.form.submit();'>";
+                        echo "<label for='{$patient->iduse}'>{$patient->name} {$patient->surname}</label><br>";
                     }  
                 }
                 
             ?>
-                <input type="submit">
+                <!-- <input type="submit"> -->
             </form>
         </div>
         <div>
-            
+            <form action='' method='POST'>
                 <?php
-                echo "<form action='' method='POST'>";
                 //legenda
                 echo "<p>Select the doctor you want to see the patients of</p>";
                 //printing doctors
                 foreach($doctors as $doctor){
-                    echo "<input type='radio' id='doctor' name='doctor_vis' value='".$doctor->iduse."'>";
-                    echo "<label for='".$doctor->iduse."'>".$doctor->name." ".$doctor->surname."</label><br>";
+                    echo "<input type='radio' id='doctor' name='doctor_vis' value='{$doctor->iduse}' onclick='this.form.submit();'>";
+                    echo "<label for='{$doctor->iduse}'>{$doctor->name} {$doctor->surname}</label><br>";
                 }
-                echo "<input type='submit'>";
-                echo "</form>";
+                //echo "<input type='submit'>"; 
+                ?>
+            </form>
 
+                <?php
                 if(isset($_POST["doctor_vis"])){
                     //legenda
                     echo "<p>These are the patients of <b>".$doctor_sel->name." ".$doctor_sel->surname."</b>:</p>";
