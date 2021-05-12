@@ -1,0 +1,32 @@
+body {
+    /* background-image: linear-gradient(to bottom right, rgb(38, 161, 14), yellow); */
+    background-color: #0B132B;
+    color: white;
+    font-family: sans-serif;
+}
+
+#cont{
+    margin: 5vh auto;
+    width: clamp(50px, 400px, 800px);
+    border: solid #5BC0BE 3px;
+    border-radius: 75px;
+    text-align: center;
+    padding: 3%;
+}
+
+#cont table{
+    margin:auto;
+}
+
+#users div{
+    border: solid white 2px;
+}
+
+#warning{
+    background-color: yellow;
+    color:black;
+}
+
+.delform{
+    display: flex;
+}
