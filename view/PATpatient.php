@@ -1,21 +1,18 @@
 <html>
     <head>
         <title>CARE4U</title>
-        <link rel="stylesheet" href="view/css/style.css">
+        <?php include "view/css/style.php";?>
     </head>
 
-    <body>
-        <div>
-            Hello patient!
-        </div>    
+    <body>    
         <!-- TODO: 
             - visualizza misurazioni del paziente
             - visualizza account paziente
             - logout paziente
             - inserisci nuova misurazione   
         -->
-        <!-- insert measurement -->
-
+        <!-- User info -->
+        <?php include "view/modules/userInfo.php"; ?>
         
         <!-- adding measurement -->
         <form action="" method="POST">
@@ -40,7 +37,24 @@
         </form>
 
         <!-- TODO: view measurements -->
-        
+        <div id="measurements">
+            <?php 
+                foreach($measurements as $measurement){
+                    echo "<div>
+                            <p>
+                            Patient: {$measurement->patient->surname}
+                            Doctor: {$measurement->doctor->surname}
+                            Ph: {$measurement->ph} <i class='fa fa-circle' aria-hidden='true' style='color: {$measurement->ph};'></i> 
+                            Chlorides: {$measurement->chlorides} <i class='fa fa-circle' aria-hidden='true' style='color: {$measurement->chlorides};'></i>
+                            Lactic acid: {$measurement->lactic_acid} <i class='fa fa-circle' aria-hidden='true' style='color: {$measurement->lactic_acid};'></i> 
+                            Glucose: {$measurement->glucose} <i class='fa fa-circle' aria-hidden='true' style='color: {$measurement->glucose};'></i> 
+                            Time: {$measurement->time}
+                            </p>                
+                        </div>" ;
+                }
+
+            ?>
+        </div>
         <!-- logout -->
         <a href="?page=logout">LOGOUT</a>
     </body>

@@ -28,8 +28,8 @@ class Model {
 		$mysqli = $this->mysqli;
 
 		//getting all the Measurements
-		$query = "SELECT * FROM Measurement;";
-		$res = $mysqli->query($query);
+		$query = "SELECT * FROM measurement ORDER BY `time`;";
+		$res = $mysqli->query($query); var_dump($res);
 		$measurements = array();
 		
 		for($i=0; $i < $res->num_rows; $i++){
@@ -92,6 +92,19 @@ class Model {
 			$roles[] = new Role($obj);
 		}
 		return $roles;
+	}
+
+	public function getRoleById($idrol){
+		//database connection object
+		$mysqli = $this->mysqli;
+
+		//query
+		$query = "SELECT `role` FROM `role` WHERE idrol=$idrol;";
+		$res = $mysqli->query($query);
+		if($res){
+			$obj = $res->fetch_object();
+			return $obj->role;
+		}
 	}
 	
 	public function getUsers(){
@@ -267,9 +280,8 @@ class Model {
 
 		$query = "INSERT INTO measurement (codlin, ph, chlorides, lactic_acid, glucose, `time`)
 					VALUES ('$codlin', '$ph', '$chlorides', '$lactic_acid', '$glucose', NOW());";
-		echo $query;
+		
 		$res = $mysqli->query($query);
-		var_dump($res);
 	}
 
 	public function getLinkId($iddoc, $idpat){
@@ -285,19 +297,40 @@ class Model {
 		return $obj->idlin;
 	}
 
+	public function getMeasurementsByUser($iduse)
+	{	
+		//database connection object
+		$mysqli = $this->mysqli;
+
+		//getting all the Measurements
+		$query = "	SELECT * FROM measurement, linkpatdoc
+					WHERE idlin = codlin AND codpat = $iduse
+					ORDER BY `time`";
+		$res = $mysqli->query($query);
+		$measurements = array();
+		
+		for($i=0; $i < $res->num_rows; $i++){
+			$obj = $res->fetch_object(); 
+			$obj->patient = $this->getUserById($obj->codpat);
+			$obj->doctor = $this->getUserById($obj->coddoc);
+			$measurements[] = $obj;
+		}
+			
+		return $measurements;
+	}
 	/**
 	 * login.php
 	 */
-	public function validateLogin(){
+	public function validateLogin($email, $password){
 		//database connection object
 		$mysqli = $this->mysqli;
 
 		//encrypting
-		$password=md5($_POST['password']);
+		$password=md5($password);
 
 		//getting the color schemes
 		$query = "SELECT * FROM `user`
-				  WHERE `email`='$_POST[email]' AND `password`='$password';";
+				  WHERE `email`='$email' AND `password`='$password';";
 		$res = $mysqli->query($query);
 
 		if($res){

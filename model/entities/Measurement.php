@@ -2,8 +2,7 @@
 
 class Measurement {
 	public $idmea;
-    public $codpat;
-    public $coddot;
+    public $codlin;
     public $ph;
     public $chlorides;
     public $lactic_acid;
@@ -13,8 +12,7 @@ class Measurement {
     public function __construct($obj)  
     {  
         $this->idmea = $obj->idmea;
-        $this->codpat = $obj->codpat;
-        $this->coddot = $obj->coddot;
+        $this->codlin = $obj->codlin;
 	    $this->ph = $obj->ph;
 	    $this->chlorides = $obj->chlorides;
         $this->lactic_acid = $obj->lactic_acid;

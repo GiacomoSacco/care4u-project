@@ -5,7 +5,10 @@
         <link rel="stylesheet" href="view/css/style.css">
     </head>
 
-    <body>  
+    <body>
+    <!-- User info -->
+    <?php include "view/modules/userInfo.php"; ?>
+
     <a href="?page=linkpatdoc">Link Patients and Doctors</a>
     <h1>Create User</h1>
         <!-- adding users -->
@@ -40,6 +43,7 @@
                     echo "<p>".$user->surname."</p>";
                     echo "<p>".$user->email."</p>";
                     echo "<p>".$roles[$user->codrol-1]->role."</p>";
+                    echo "<form></form>";
                     echo "</div>";
                 }
             ?>

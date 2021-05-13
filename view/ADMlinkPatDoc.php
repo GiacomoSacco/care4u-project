@@ -6,7 +6,10 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
 
-    <body>  
+    <body>
+        <!-- User info -->
+        <?php include "view/modules/userInfo.php"; ?>
+        
         <a href="?page=createUser">Create new User</a>
         <h1>Link patients and doctors</h1>
 
@@ -65,7 +68,7 @@
                 ?>
         </div>
         <!-- logout -->
-        <a href="?page=logout">LOGOUTTTTTTTTTTT</a>
+        <a href="?page=logout">LOGOUT</a>
 
         <script src="view/js/linkPatDoc.js"></script>
     </body>

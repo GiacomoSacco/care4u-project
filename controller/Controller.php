@@ -92,6 +92,9 @@ class Controller {
 		//array of the doctors linked to the session user
 		$linked_doctors = $this->model->getLinkedDoctors($_SESSION["user"]->iduse);
 
+		//VISUALIZE measurements
+		$measurements = $this->model->getMeasurementsByUser($_SESSION['user']->iduse);
+
 		include "view/PATpatient.php";
 	}
 
@@ -103,8 +106,9 @@ class Controller {
 
 	public function login()
 	{
-		if(count($_POST)>0){
-			$user = $this->model->validateLogin();
+		if(isset($_POST['email'])&&isset($_POST['password'])){
+			$user = $this->model->validateLogin($_POST['email'], $_POST['password']);
+			$user->role = $this->model->getRoleById($user->codrol);
 			$_SESSION['user'] = $user;
 		}
 		if(isset($_SESSION['user'])){
