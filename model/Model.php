@@ -99,11 +99,11 @@ class Model {
 		$mysqli = $this->mysqli;
 
 		//query
-		$query = "SELECT `role` FROM `role` WHERE idrol=$idrol;";
+		$query = "SELECT `role`, icon FROM `role` WHERE idrol=$idrol;";
 		$res = $mysqli->query($query);
 		if($res){
 			$obj = $res->fetch_object();
-			return $obj->role;
+			return $obj;
 		}
 	}
 	
@@ -153,12 +153,9 @@ class Model {
 		return $user;
 	}
 
-	public function addLinkPatDoc(){
+	public function addLinkPatDoc($idpat, $iddoc){
 		//database connection object
 		$mysqli = $this->mysqli;
-
-		$idpat = $_POST["patient"];
-		$iddoc = $_POST["doctor"];
 
 		//check if they are already linked
 		$query = "SELECT * FROM linkpatdoc WHERE codpat = $idpat AND coddoc = $iddoc";

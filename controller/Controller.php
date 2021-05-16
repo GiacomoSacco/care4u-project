@@ -37,7 +37,7 @@ class Controller {
 
 	public function link_patients_doctors(){
 		$this->loginCheck(self::ADMIN);
-		var_dump($_POST);
+		
 		//ADD LINK
 		$doctors = $this->model->getUserByRole(self::DOCTOR);
 
@@ -52,19 +52,9 @@ class Controller {
 
 		//adding the link doctor-patient to the DB
 		if(isset($_POST["doctor"]) && isset($_POST["patient"])){
-			$this->model->addLinkPatDoc();
-			unset($_POST["doctor"]);
+			$this->model->addLinkPatDoc($_POST["patient"], $_POST["doctor"]);
+			//unset($_POST["doctor"]);
 		} 
-
-		//SEE LINKS
-
-		//getting data to print the doctor's patients
-		// if(isset($_POST["doctor_vis"])){
-		// 	//getting the patients not linked with the selected doctor
-		// 	$patients_vis = $this->model->getLinkedPatients($_POST["doctor_vis"]);
-		// 	//getting selected doctor infos
-		// 	$doctor_sel = $this->model->getUserById($_POST["doctor_vis"]);
-		// }
 
 		//REMOVE LINKS
 		if(isset($_POST["REMdoctorid"]) && isset($_POST["REMpatientid"])){
@@ -153,6 +143,7 @@ class Controller {
 			if($user = $this->model->validateLogin($_GET['email'], $_GET['password'])){
 				$user->role = $this->model->getRoleById($user->codrol);
 				$_SESSION['user'] = $user;
+				header('Location: ?page=login');
 			}else{
 				echo "wrong credentials";
 			}

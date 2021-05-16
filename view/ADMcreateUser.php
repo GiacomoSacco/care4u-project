@@ -11,9 +11,13 @@
                 <h1>CARE4U</h1>
             </div>
             <div id="head">
-                <a href="?page=linkpatdoc">Link Patients and Doctors</a>
+                <div id="nav"> 
+                    <a href="?page=linkpatdoc">Link Patients and Doctors</a>
+                </div>
                 <!-- User info -->
-                <?php include "view/modules/userInfo.php"; ?>
+                <div id="userinfo">
+                    <?php include "view/modules/userInfo.php"; ?>
+                </div>
             </div>
             <div id="commands">
                 <h1>Create User</h1>
