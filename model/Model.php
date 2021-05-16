@@ -22,40 +22,40 @@ class Model {
 		}
     }
 
-	public function getMeasurements()
-	{	
-		//database connection object
-		$mysqli = $this->mysqli;
+	// public function getMeasurements()
+	// {	
+	// 	//database connection object
+	// 	$mysqli = $this->mysqli;
 
-		//getting all the Measurements
-		$query = "SELECT * FROM measurement ORDER BY `time`;";
-		$res = $mysqli->query($query); var_dump($res);
-		$measurements = array();
+	// 	//getting all the Measurements
+	// 	$query = "SELECT * FROM measurement ORDER BY `time`;";
+	// 	$res = $mysqli->query($query); var_dump($res);
+	// 	$measurements = array();
 		
-		for($i=0; $i < $res->num_rows; $i++){
-			$obj = $res->fetch_object();
-			$measurements[] = new Measurement($obj);
-		}
+	// 	for($i=0; $i < $res->num_rows; $i++){
+	// 		$obj = $res->fetch_object();
+	// 		$measurements[] = new Measurement($obj);
+	// 	}
 			
-		return $measurements;
-	}
+	// 	return $measurements;
+	// }
 	
-	public function getColors()
-	{
-		//database connection object
-		$mysqli = $this->mysqli;
+	// public function getColors()
+	// {
+	// 	//database connection object
+	// 	$mysqli = $this->mysqli;
 
-		//getting the color schemes
-		$query = "SELECT * FROM Color;";
-		$res = $mysqli->query($query);
-		$colors = array();
+	// 	//getting the color schemes
+	// 	$query = "SELECT * FROM Color;";
+	// 	$res = $mysqli->query($query);
+	// 	$colors = array();
 
-		for($i=0; $i < $res->num_rows; $i++){
-			$obj = $res->fetch_object();
-			$colors[] = new Color($obj);
-		}
-		return $colors;
-	}
+	// 	for($i=0; $i < $res->num_rows; $i++){
+	// 		$obj = $res->fetch_object();
+	// 		$colors[] = new Color($obj);
+	// 	}
+	// 	return $colors;
+	// }
 	
 	/**
 	 * Administration.php
@@ -297,7 +297,7 @@ class Model {
 		return $obj->idlin;
 	}
 
-	public function getMeasurementsByUser($iduse)
+	public function getMeasurementsByPatient($iduse)
 	{	
 		//database connection object
 		$mysqli = $this->mysqli;
@@ -318,6 +318,29 @@ class Model {
 			
 		return $measurements;
 	}
+
+	public function getMeasurementsByDoctor($iduse)
+	{	
+		//database connection object
+		$mysqli = $this->mysqli;
+
+		//getting all the Measurements
+		$query = "	SELECT * FROM measurement, linkpatdoc
+					WHERE idlin = codlin AND coddoc = $iduse
+					ORDER BY `time`";
+		$res = $mysqli->query($query);
+		$measurements = array();
+		
+		for($i=0; $i < $res->num_rows; $i++){
+			$obj = $res->fetch_object(); 
+			$obj->patient = $this->getUserById($obj->codpat);
+			$obj->doctor = $this->getUserById($obj->coddoc);
+			$measurements[] = $obj;
+		}
+			
+		return $measurements;
+	}
+
 	/**
 	 * login.php
 	 */
@@ -338,8 +361,8 @@ class Model {
 			$obj = $res->fetch_object();
 			return $obj;
 		}else{
-			//FALSE: return 0
-			return 0;
+			//FALSE: return false
+			return false;
 		}
 	}
 

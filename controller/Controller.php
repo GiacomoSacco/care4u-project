@@ -19,12 +19,6 @@ class Controller {
 		include "view/homepage.php";
 	}
 
-	public function measurements()
-	{
-		$measurements =	$this->model->getMeasurements();
-		$colors = $this->model->getColors();
-		include "view/measurements.php";
-	}
 
 	//TODO: remove accounts
 	public function create_user()
@@ -93,7 +87,7 @@ class Controller {
 		$linked_doctors = $this->model->getLinkedDoctors($_SESSION["user"]->iduse);
 
 		//VISUALIZE measurements
-		$measurements = $this->model->getMeasurementsByUser($_SESSION['user']->iduse);
+		$measurements = $this->model->getMeasurementsByPatient($_SESSION['user']->iduse);
 
 		include "view/PATpatient.php";
 	}
@@ -101,7 +95,14 @@ class Controller {
 	public function doctor()
 	{	
 		$this->loginCheck(self::DOCTOR);
-		include "view/doctor.php";
+
+		//array of the patients linked to the session user
+		$linked_patients = $this->model->getLinkedPatients($_SESSION['user']->iduse);
+
+		//VISUALIZE measurements
+		$measurements = $this->model->getMeasurementsByDoctor($_SESSION['user']->iduse);
+
+		include "view/DOCdoctor.php";
 	}
 
 	public function login()
@@ -129,7 +130,7 @@ class Controller {
 	}
 
 
-	//<FUNCTIONS
+	//logins
 	public function loginCheck($role){
 		//check if the user is logged 
 		if(!isset($_SESSION['user'])){
@@ -145,6 +146,20 @@ class Controller {
 	public function logout(){
 		unset($_SESSION['user']);
 		header('Location: ?page=login');	
+	}
+
+	public function nfc(){
+		if(isset($_GET['email'])&&isset($_GET['password'])){
+			if($user = $this->model->validateLogin($_GET['email'], $_GET['password'])){
+				$user->role = $this->model->getRoleById($user->codrol);
+				$_SESSION['user'] = $user;
+			}else{
+				echo "wrong credentials";
+			}
+			
+		}else{
+			header('Location: ?page=login');
+		}	
 	}
 }
 ?>

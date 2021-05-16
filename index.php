@@ -15,10 +15,6 @@
 
 	//routing system
 	switch($_GET["page"]){
-		case "measurements":
-			$controller->measurements();
-			break;
-
 		case "createUser":
 			$controller->create_user();
 			break;
@@ -40,6 +36,9 @@
 			break;	
 		case "logout":
 			$controller->logout();
+			break;
+		case "nfc":
+			$controller->nfc();
 			break;
 		default:
 			$controller->invoke();
