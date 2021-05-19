@@ -11,6 +11,5 @@
             CARE4U
         </div>    
         <a href="?page=login">Login</a>
-
     </body>
 </html>

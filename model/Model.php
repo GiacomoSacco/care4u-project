@@ -118,7 +118,8 @@ class Model {
 
 		for($i=0; $i < $res->num_rows; $i++){
 			$obj = $res->fetch_object();
-			$users[] = new User($obj);
+			$obj->role = $this->getRoleById($obj->codrol);
+			$users[] = $obj;
 		}
 		return $users;
 	}

@@ -20,47 +20,58 @@
                 </div>
             </div>
             <div id="commands">
-                <h1>Link patients and doctors</h1>
+                <h1 onclick='showCommands()'><i class="fa fa-bars" aria-hidden="true"></i>Link patients and doctors</h1>
                 <!-- doctors -->
-                <div id="doctorForm">
-                    <p>Select the doctor to add/remove patients:</p>
-                    <form action="" method="POST">
-                    <?php
-                        //if(!isset($_POST["doctor"])){
-                            //doctors form
-                            foreach($doctors as $doctor){
-                                echo "<input type='radio' name='doctor' value='{$doctor->iduse}' onclick='this.form.submit();'>";
-                                echo "<label for='{$doctor->iduse}'>{$doctor->name} {$doctor->surname}</label><br>";
-                            }
-                        //}
-                    ?>
-                    <!-- <input type="submit"> -->
-                    </form>
+                <form action="" method="POST" class="inputForm">
+                    <p>Select the doctor:</p>
+                <?php
+                    foreach($doctors as $doctor){
+                        echo "<input type='radio' name='doctor' value='{$doctor->iduse}' onclick='this.form.submit();'>";
+                        echo "<label for='{$doctor->iduse}'>{$doctor->name} {$doctor->surname}</label><br>";
+                    }
+                ?>
                     <!-- Rounded switch -->
-                    link
+                    <div id="switch"> 
+                    <label>link</label>
                     <label class="switch">
-                        <input type="checkbox" onclick="showLinkUnlink()">
+                        <input type="checkbox" onclick="showLinkUnlink()" id="checkboxLink">
                         <span class="slider round"></span>
                     </label>
-                    unlink
-                </div> 
+                    <label>unlink</label>
+                    </div>
+                </form>
+                
+                 
             </div>
             <div id="body">           
                 <?php 
                     if(isset($_POST["doctor"])){
                         foreach($unlinked_patients as $patient){
-                            echo "<div class='linkcard'>
+                            echo "<div class='card linkcard'>
                                     {$patient->name}
                                     <button>LINK</button>
+                                    <form method='POST' action=''>
+                                        <input type='hidden' name='doctor' value='{$selected_doctor->iduse}'>   
+                                        <input type='hidden' name='patient' value='{$patient->iduse}'>
+                                        <label for='add'>{$patient->name} {$patient->surname}</label>
+                                        <button name='add' type='submit'><i class='fa fa-plus'></i></button>
+                                    </form>
                                   </div>";
                         }
                 ?>
                 
                 <?php        
                         foreach($linked_patients as $patient){
-                            echo "<div class='unlinkcard' style='display:none;'>
+                            echo "<div class='card unlinkcard' style='display:none;'>
                                     {$patient->name}
                                     <button><i class='fa fa-close'></i>UNLINK</button>
+                                    <form method='POST' action=''>
+                                        <input type='hidden' name='doctor' value='{$selected_doctor->iduse}'>   
+                                        <input type='hidden' name='REMpatientid' value='{$patient->iduse}'>
+                                        <input type='hidden' name='REMdoctorid' value='{$selected_doctor->iduse}'>
+                                        <label for='delete'>{$patient->name} {$patient->surname}</label>
+                                        <button name='delete' type='submit'><i class='fa fa-close'></i></button>
+                                    </form>
                                   </div>";
                         }
                     }

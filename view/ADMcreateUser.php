@@ -3,6 +3,17 @@
         <title>CARE4U</title>
 
         <?php include "view/css/style.php";?>
+        <script>
+            function showCommands(){
+                let form = document.querySelector('.inputForm');
+                console.log(form)
+                if(form.style.display == 'none'){
+                    form.style.display = 'block';
+                }else{
+                    form.style.display = 'none';
+                }
+            }
+        </script>
     </head>
 
     <body>
@@ -12,7 +23,7 @@
             </div>
             <div id="head">
                 <div id="nav"> 
-                    <a href="?page=linkpatdoc">Link Patients and Doctors</a>
+                    <a href="?page=linkpatdoc">Link Pat Doc</a>
                 </div>
                 <!-- User info -->
                 <div id="userinfo">
@@ -20,9 +31,9 @@
                 </div>
             </div>
             <div id="commands">
-                <h1>Create User</h1>
+                <h1 onclick='showCommands()'>Create User</h1>
                 <!-- adding users -->
-                <form action="" method="POST">
+                <form action="" method="POST" class="inputForm">
                     <label for="name">Name: </label>
                     <input type="text" id="name" name="name" required>
                     <label for="surname">Surname:</label>
@@ -31,7 +42,7 @@
                     <input type="email" id="email" name="email">
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" required>
-                    <label for="role">Role:</label>
+                    <label for="role">Role:</label><br>
                     <select name="codrol" id="role">
                         <!-- <option disabled selected value> -- select an option -- </option> -->
                         <?php
@@ -39,8 +50,8 @@
                             echo "<option value='".$role->idrol."'>".$role->role."</option>";
                         }
                         ?>
-                    </select>
-                    <input type="submit">
+                    </select><br>
+                    <input type="submit" value='Create'>
                 </form>
             </div>
             <div id="body">
@@ -49,11 +60,11 @@
                     //printing users
                     foreach($users as $user){
                         echo "<div class='card'>";
+                        echo "<img src='{$user->role->icon}' alt='icon'>";
                         echo "<p>".$user->name."</p>";
                         echo "<p>".$user->surname."</p>";
                         echo "<p>".$user->email."</p>";
-                        echo "<p>".$roles[$user->codrol-1]->role."</p>";
-                        echo "<form></form>";
+                        echo "<p>".$user->role->role."</p>";
                         echo "</div>";
                     }
                 ?>

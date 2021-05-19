@@ -1,8 +1,9 @@
 function showLinkUnlink() {
-    console.log("funzia");
     var link = document.querySelectorAll(".linkcard");
     var unlink = document.querySelectorAll(".unlinkcard");
-    if (link[0].style.display === "none") {
+    var checkbox = document.querySelector("#checkboxLink");
+    console.log(checkbox.checked);
+    if (!checkbox.checked) {
         link.forEach((item, i) => {
             item.style.display = "block";
         });
@@ -18,3 +19,25 @@ function showLinkUnlink() {
         });
     }
   }
+
+function showLink(doctor){
+    console.log(doctor);
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("demo").innerHTML = this.responseText;
+        }
+    };
+    xhttp.open("GET", "AJAXindex.php?function=", true);
+    xhttp.send();
+}
+
+function showCommands(){
+    let form = document.querySelector('.inputForm');
+    console.log(form)
+    if(form.style.display == 'none'){
+        form.style.display = 'block';
+    }else{
+        form.style.display = 'none';
+    }
+}

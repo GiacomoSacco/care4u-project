@@ -38,8 +38,16 @@ class Controller {
 	public function link_patients_doctors(){
 		$this->loginCheck(self::ADMIN);
 		
-		//ADD LINK
-		$doctors = $this->model->getUserByRole(self::DOCTOR);
+		//REMOVE LINKS
+		if(isset($_POST["REMdoctorid"]) && isset($_POST["REMpatientid"])){
+			$this->model->removeLinkPatDoc();
+		}
+
+		//adding the link doctor-patient to the DB
+		if(isset($_POST["doctor"]) && isset($_POST["patient"])){
+			$this->model->addLinkPatDoc($_POST["patient"], $_POST["doctor"]);
+			//unset($_POST["doctor"]);
+		} 
 
 		if(isset($_POST["doctor"])){
 			//getting the patients not linked with the selected doctor
@@ -50,16 +58,7 @@ class Controller {
 			$selected_doctor = $this->model->getUserById($_POST["doctor"]);
 		}
 
-		//adding the link doctor-patient to the DB
-		if(isset($_POST["doctor"]) && isset($_POST["patient"])){
-			$this->model->addLinkPatDoc($_POST["patient"], $_POST["doctor"]);
-			//unset($_POST["doctor"]);
-		} 
-
-		//REMOVE LINKS
-		if(isset($_POST["REMdoctorid"]) && isset($_POST["REMpatientid"])){
-			$this->model->removeLinkPatDoc();
-		}
+		$doctors = $this->model->getUserByRole(self::DOCTOR);
 
 		include "view/ADMlinkPatDoc.php";
 	}
