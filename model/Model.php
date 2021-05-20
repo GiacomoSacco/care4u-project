@@ -22,23 +22,23 @@ class Model {
 		}
     }
 
-	// public function getMeasurements()
-	// {	
-	// 	//database connection object
-	// 	$mysqli = $this->mysqli;
+	public function getMeasurements()
+	{	
+		//database connection object
+		$mysqli = $this->mysqli;
 
-	// 	//getting all the Measurements
-	// 	$query = "SELECT * FROM measurement ORDER BY `time`;";
-	// 	$res = $mysqli->query($query); var_dump($res);
-	// 	$measurements = array();
+		//getting all the Measurements
+		$query = "SELECT * FROM measurement ORDER BY `time` ASC;";
+		$res = $mysqli->query($query);
+		$measurements = array();
 		
-	// 	for($i=0; $i < $res->num_rows; $i++){
-	// 		$obj = $res->fetch_object();
-	// 		$measurements[] = new Measurement($obj);
-	// 	}
+		for($i=0; $i < $res->num_rows; $i++){
+			$obj = $res->fetch_object();
+			$measurements[] = $obj;
+		}
 			
-	// 	return $measurements;
-	// }
+		return $measurements;
+	}
 	
 	// public function getColors()
 	// {
@@ -140,16 +140,17 @@ class Model {
 		return $users;
 	}
 
-	public function getUserById($id){
+	public function getUserById($iduse){
 		//database connection object
 		$mysqli = $this->mysqli;
 
 		//
-		$query = "SELECT * FROM `user` WHERE iduse = $id;";
+		$query = "SELECT * FROM `user` WHERE iduse = $iduse;";
 		$res = $mysqli->query($query);
 
 		$obj = $res->fetch_object();
-		$user = new User($obj);
+		$obj->role = $this->getRoleById($obj->codrol);
+		$user = $obj;
 
 		return $user;
 	}
@@ -264,22 +265,18 @@ class Model {
 	/**
 	 * patient.php
 	 */
-	public function addMeasurement(){
+	public function addMeasurement($codpat, $ph, $chlorides, $lactic_acid, $glucose){
 		//database connection object
 		$mysqli = $this->mysqli;
-
-		$codlin = $this->getLinkId($_POST["iddoc"], $_SESSION["user"]->iduse);
-		$ph = $_POST["ph"];
-		$chlorides =$_POST["chlorides"];
-		$lactic_acid = $_POST["lactic_acid"];
-		$glucose = $_POST["glucose"];
-		$time = time();
+	
+		$query = "INSERT INTO measurement (codpat, ph, chlorides, lactic_acid, glucose, `time`)
+					VALUES ('$codpat', '$ph', '$chlorides', '$lactic_acid', '$glucose', NOW());";
 		
-
-		$query = "INSERT INTO measurement (codlin, ph, chlorides, lactic_acid, glucose, `time`)
-					VALUES ('$codlin', '$ph', '$chlorides', '$lactic_acid', '$glucose', NOW());";
-		
-		$res = $mysqli->query($query);
+		if($res = $mysqli->query($query)){
+			return "success";
+		}else{
+			return "error";
+		}
 	}
 
 	public function getLinkId($iddoc, $idpat){
@@ -295,14 +292,14 @@ class Model {
 		return $obj->idlin;
 	}
 
-	public function getMeasurementsByPatient($iduse)
+	public function getMeasurementsByPatient($codpat)
 	{	
 		//database connection object
 		$mysqli = $this->mysqli;
 
 		//getting all the Measurements
-		$query = "	SELECT * FROM measurement, linkpatdoc
-					WHERE idlin = codlin AND codpat = $iduse
+		$query = "	SELECT * FROM measurement
+					WHERE codpat = $codpat
 					ORDER BY `time`";
 		$res = $mysqli->query($query);
 		$measurements = array();
@@ -310,33 +307,35 @@ class Model {
 		for($i=0; $i < $res->num_rows; $i++){
 			$obj = $res->fetch_object(); 
 			$obj->patient = $this->getUserById($obj->codpat);
-			$obj->doctor = $this->getUserById($obj->coddoc);
 			$measurements[] = $obj;
 		}
 			
 		return $measurements;
 	}
 
-	public function getMeasurementsByDoctor($iduse)
+	public function getMeasurementsByDoctor($coddoc)
 	{	
 		//database connection object
 		$mysqli = $this->mysqli;
 
-		//getting all the Measurements
-		$query = "	SELECT * FROM measurement, linkpatdoc
-					WHERE idlin = codlin AND coddoc = $iduse
-					ORDER BY `time`";
+		//getting patients linked with the doctor
+		$query = "	SELECT codpat FROM linkpatdoc
+					WHERE coddoc = $coddoc;"; 
 		$res = $mysqli->query($query);
-		$measurements = array();
 		
+		//array of patients linked with the doctor
 		for($i=0; $i < $res->num_rows; $i++){
 			$obj = $res->fetch_object(); 
-			$obj->patient = $this->getUserById($obj->codpat);
-			$obj->doctor = $this->getUserById($obj->coddoc);
-			$measurements[] = $obj;
+			$patients_mea[]=$this->getUserById($obj->codpat);
 		}
-			
-		return $measurements;
+		
+		//adding measurements array field
+		foreach($patients_mea as $patient){
+			$patient->measurements = $this->getMeasurementsByPatient($patient->iduse);
+		}
+		
+		//return an array of patients with their measurements
+		return $patients_mea;
 	}
 
 	/**

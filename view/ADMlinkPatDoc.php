@@ -2,7 +2,8 @@
     <head>
         <title>CARE4U</title>
 
-        <?php include "view/css/style.php";?>
+        <?php include "view/modules/style.php";?>
+        <script src="view/js/global.js"></script>
     </head>
 
     <body>
@@ -20,7 +21,7 @@
                 </div>
             </div>
             <div id="commands">
-                <h1 onclick='showCommands()'><i class="fa fa-bars" aria-hidden="true"></i>Link patients and doctors</h1>
+                <h3 onclick='showCommands()'><i class="fa fa-bars" aria-hidden="true"></i>Link patients and doctors</h3>
                 <!-- doctors -->
                 <form action="" method="POST" class="inputForm">
                     <p>Select the doctor:</p>
@@ -125,6 +126,6 @@
                 <a href="?page=logout">LOGOUT</a>
             </div>
         </div> 
-    <script src="view/js/linkPatDoc.js"></script>
+    
     </body>
 </html>

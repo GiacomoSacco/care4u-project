@@ -31,13 +31,3 @@ function showLink(doctor){
     xhttp.open("GET", "AJAXindex.php?function=", true);
     xhttp.send();
 }
-
-function showCommands(){
-    let form = document.querySelector('.inputForm');
-    console.log(form)
-    if(form.style.display == 'none'){
-        form.style.display = 'block';
-    }else{
-        form.style.display = 'none';
-    }
-}

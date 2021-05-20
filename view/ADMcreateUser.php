@@ -2,18 +2,8 @@
     <head>
         <title>CARE4U</title>
 
-        <?php include "view/css/style.php";?>
-        <script>
-            function showCommands(){
-                let form = document.querySelector('.inputForm');
-                console.log(form)
-                if(form.style.display == 'none'){
-                    form.style.display = 'block';
-                }else{
-                    form.style.display = 'none';
-                }
-            }
-        </script>
+        <?php include "view/modules/style.php";?>
+        <script src="view/js/global.js"></script>
     </head>
 
     <body>
@@ -31,7 +21,7 @@
                 </div>
             </div>
             <div id="commands">
-                <h1 onclick='showCommands()'>Create User</h1>
+                <h3 onclick='showCommands()'>Create User</h3>
                 <!-- adding users -->
                 <form action="" method="POST" class="inputForm">
                     <label for="name">Name: </label>

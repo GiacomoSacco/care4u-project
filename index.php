@@ -27,8 +27,8 @@
 			$controller->patient();
 			break;
 
-		case "doctor":
-			$controller->doctor();
+		case "DOCviewpat":
+			$controller->viewpat();
 			break;
 
 		case "login":

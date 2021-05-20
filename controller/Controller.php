@@ -20,7 +20,7 @@ class Controller {
 	}
 
 
-	//TODO: remove accounts
+	//ADMIN
 	public function create_user()
 	{	
 		$this->loginCheck(self::ADMIN);
@@ -62,38 +62,35 @@ class Controller {
 
 		include "view/ADMlinkPatDoc.php";
 	}
-
+	//Patient
 	public function patient()
 	{	
 		$this->loginCheck(self::PATIENT);
 
 		//if the form has been sent add the measurement to the database
 		if(!empty($_POST["ph"])&&!empty($_POST["chlorides"])&&!empty($_POST["lactic_acid"])&&!empty($_POST["glucose"])){
-			$this->model->addMeasurement();
+			$this->model->addMeasurement($_SESSION["user"]->iduse,$_POST["ph"],$_POST["chlorides"],$_POST["lactic_acid"],$_POST["glucose"]);
 		}
 
 		//array of the doctors linked to the session user
-		$linked_doctors = $this->model->getLinkedDoctors($_SESSION["user"]->iduse);
+		//$linked_doctors = $this->model->getLinkedDoctors($_SESSION["user"]->iduse);
 
 		//VISUALIZE measurements
 		$measurements = $this->model->getMeasurementsByPatient($_SESSION['user']->iduse);
 
 		include "view/PATpatient.php";
 	}
-
-	public function doctor()
+	//DOCTOR
+	public function viewpat()
 	{	
 		$this->loginCheck(self::DOCTOR);
 
-		//array of the patients linked to the session user
-		$linked_patients = $this->model->getLinkedPatients($_SESSION['user']->iduse);
-
 		//VISUALIZE measurements
-		$measurements = $this->model->getMeasurementsByDoctor($_SESSION['user']->iduse);
+		$patients_mea = $this->model->getMeasurementsByDoctor($_SESSION['user']->iduse);
 
-		include "view/DOCdoctor.php";
+		include "view/DOCviewpat.php";
 	}
-
+	//LOGIN
 	public function login()
 	{
 		if(isset($_POST['email'])&&isset($_POST['password'])){
@@ -107,7 +104,7 @@ class Controller {
 					header('Location: ?page=patient');
 					break;
 				case 2:
-					header('Location: ?page=doctor');
+					header('Location: ?page=DOCviewpat');
 					break;
 				case 3:
 					header('Location: ?page=createUser');
