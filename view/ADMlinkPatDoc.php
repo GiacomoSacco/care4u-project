@@ -9,7 +9,8 @@
     <body>
         <div id="cont">
             <div id="logo">
-                <h1>CARE4U</h1>
+                <!-- <h1>CARE4U</h1> -->
+                <img src="public/logo_transparent.png" alt="LOGO">
             </div>
             <div id="head">
                 <div id="nav"> 
@@ -21,7 +22,7 @@
                 </div>
             </div>
             <div id="commands">
-                <h3 onclick='showCommands()'><i class="fa fa-bars" aria-hidden="true"></i>Link patients and doctors</h3>
+                <button onclick="showCommands()" class="showMenu">Link patients and doctors <i class="fa fa-angle-down" aria-hidden="true" id="menuIcon"></i></button>
                 <!-- doctors -->
                 <form action="" method="POST" class="inputForm">
                     <p>Select the doctor:</p>

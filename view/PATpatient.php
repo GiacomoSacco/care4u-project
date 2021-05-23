@@ -14,11 +14,10 @@
         -->
         <div id="cont">
             <div id="logo">
-                <h1>CARE4U</h1>
+                <img src="public/logo_transparent.png" alt="LOGO">
             </div>
             <div id="head">
                 <div id="nav"> 
-                    <a href="?page=linkpatdoc"></a>
                 </div>
                 <!-- User info -->
                 <div id="userinfo">
@@ -27,7 +26,7 @@
             </div>
             <div id="commands">
                 <!-- adding measurement -->
-                <h3 onclick='showCommands()'>Add measurement</h3>
+                <button onclick="showCommands()" class="showMenu">Add measurement <i class="fa fa-angle-down" aria-hidden="true" id="menuIcon"></i></button>
                 <form action="" method="POST" class="inputForm">
                     <input type="hidden" name="iduse" value="<?php echo $_SESSION["user"]->iduse; ?>">
                     <div class="colorpick">
@@ -48,21 +47,28 @@
                     </div>   
                     <input type="submit"><br>
                 </form>
-            </div>  
+            </div>
+            <div id="disclaimer">
+                <span>Your measurements</span>
+            </div>
             <div id="body">
                 <!-- TODO: view measurements -->
                 <?php 
                     
                     foreach($measurements as $measurement){
                         echo "<div class='card'>
-                                <p>Date: {$measurement->time}</p>
-                                <p class='MEAvalues'>
-                                Ph: {$measurement->ph} <i class='fa fa-circle' aria-hidden='true' style='color: {$measurement->ph};'></i> <br>
-                                Chlorides: {$measurement->chlorides} <i class='fa fa-circle' aria-hidden='true' style='color: {$measurement->chlorides};'></i> <br>
-                                Lactic acid: {$measurement->lactic_acid} <i class='fa fa-circle' aria-hidden='true' style='color: {$measurement->lactic_acid};'></i> <br>
-                                Glucose: {$measurement->glucose} <i class='fa fa-circle' aria-hidden='true' style='color: {$measurement->glucose};'></i> <br>
-                                </p>              
-                            </div>" ;
+                            <p>Date: {$measurement->time}</p>
+                            <div class='MEAvalues'>
+                            Ph {$measurement->ph}<br>
+                            <p style='background-color:{$measurement->ph}' class='colorMEA'>&nbsp</p>
+                            Chlorides {$measurement->chlorides}<br>
+                            <p style='background-color:{$measurement->chlorides}' class='colorMEA'>&nbsp</p>
+                            Lactic acid {$measurement->lactic_acid}<br>
+                            <p style='background-color:{$measurement->lactic_acid}' class='colorMEA'>&nbsp</p>
+                            Glucose {$measurement->glucose}<br>
+                            <p style='background-color:{$measurement->glucose}' class='colorMEA'>&nbsp</p>
+                            </div>              
+                        </div>" ;
                     }
 
                 ?>

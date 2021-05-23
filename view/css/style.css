@@ -4,7 +4,7 @@
 
 body {
     background-image: linear-gradient(to bottom right, #05386B, #5CDB95);
-    color: white;
+    color: #EDF5E1;
     font-family: sans-serif;
     margin: 0;
     font-size: 1.1rem;
@@ -12,13 +12,17 @@ body {
 #cont{
     display: grid;
     grid-template-columns: minmax(250px, 18vw) 1fr; 
-    grid-auto-rows: 12vh 82vh 6vh;
+    grid-auto-rows: 12vh 6vh 76vh 6vh;
 }
 #logo{
-    color: #EDF5E1;
+    color: #edf5e15e;
     grid-column: 1;
-    grid-row: 1;
+    grid-row: 1/3;
     text-align: center;
+}
+#logo img{
+    max-width: 80px;
+    margin: 1vh 1vw
 }
 #head{
     color:#EDF5E1;
@@ -64,13 +68,11 @@ body {
 #commands{
     color:#EDF5E1;
     grid-column: 1;
-    grid-row: 2/3;
+    grid-row: 3/4;
     text-align: center;
 }
-#commands h3:hover{
-    text-shadow: 0 0 10px #000;
-}
-#commands input[type=text],input[type=email],input[type=password]{
+
+.inputForm input[type=text],input[type=email],input[type=password]{
     width: 90%;
     margin-bottom: 1vh;
     padding: .5rem 1rem;
@@ -78,7 +80,7 @@ body {
     border-radius: 4px;
     background-color: #EDF5E1;
 }
-#commands select{
+.inputForm select{
     background-color: #EDF5E1; 
     width: 70%;
     text-align: center;
@@ -86,7 +88,7 @@ body {
     padding: .5rem;
     margin-top: 1vh;
 }
-#commands input[type=submit],button{
+.inputForm input[type=submit],button{
     background-color: #5CDB95;
     border: none;
     color: #EDF5E1;
@@ -99,11 +101,19 @@ body {
     font-size: 1.2rem;
     color:#333333
 }
-#commands button:disabled{
+
+.inputForm button:disabled{
     background-color: #5cdb957c;
 }
-#commands input[type=submit]:hover{
+.inputForm input[type=submit]:hover{
     box-shadow: 0px 0 8px 4px rgba(255, 255, 255, 0.3);
+}
+.showMenu{
+    background-color: transparent;
+    color:#EDF5E1;
+}
+.showMenu:hover{
+    text-shadow: 0 0 10px #000;
 }
 .colorpick{
     text-align: right;
@@ -113,10 +123,16 @@ body {
     vertical-align:middle;
 }
 
+#disclaimer{
+    grid-column: 2/4;
+    grid-row: 2;
+    text-align: center;
+}
+
 #body{
     color: #333333;
     grid-column: 2/4;
-    grid-row: 2;
+    grid-row: 3;
     display: inline-flex;
     flex-wrap: wrap;
     padding: 1rem;
@@ -125,9 +141,9 @@ body {
 }
 .card{
     background-color: #5CDB95;
-    min-height: 300px;
-    max-height: 400px;
-    height: clamp(300px, 24vh, 400px);
+    /* min-height: 300px;
+    max-height: 400px; */
+    height: 300px;/*clamp(300px, 24vh, 400px);*/
     width: clamp(250px, 25%, 350px);
     border-radius: 25px;
     flex-basis: 250px;
@@ -138,6 +154,12 @@ body {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
 
+    /* padding: 0 15 0 0;
+    text-align: right; */
+    padding: 1;
+    overflow-wrap: break-word;
+    font-size: 1rem   ;
+    margin: 0;
 }
 .card:hover {
     box-shadow: 0px 8px 16px 8px rgba(0,0,0,0.3);
@@ -147,6 +169,7 @@ body {
     width: 100px;
     height: 100px;
     background-color: #EDF5E1;
+    margin-bottom: 3vh;
 }
   
 .MEAvalues > i{
@@ -167,9 +190,21 @@ body {
     width: 5em;
 }
 
+.colorMEA{
+    width: 80%;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    font-size: 1rem;
+    padding: 1.5%;
+    /* text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white; */
+    color:#333;
+}
+
 #foot{
     grid-column: 2/3;
-    grid-row: 3;
+    grid-row: 4;
 }
 
 @media only screen and (max-width: 500px) {
@@ -179,7 +214,7 @@ body {
     #cont{
         display: grid;
         grid-template-columns: 1fr; /*repeat(3, 1fr);*/
-        grid-auto-rows: 7vh 7vh 1fr 71vh 5vh;/*minmax(100px, auto);*/
+        grid-auto-rows: 15vh 7vh 1fr .1fr 69vh 5vh;/*minmax(100px, auto);*/
     }
     #logo{
         grid-column: 1;
@@ -192,26 +227,30 @@ body {
     #userinfo{
         font-size: 0.8rem;
         width:50%;
-        padding-right: 0;
-        
+        padding-right: 2vw; 
     }
     #nav{
         width:50%;
+        padding-left: 2vw;
     }
     #commands{
         grid-column: 1;
         grid-row: 3;
         /* display:none; */
         font-size: .8rem;
+        margin: 0 auto;
 
     }
     .inputForm{
         font-size: 1.2rem;
     }
-
-    #body{
+    #disclaimer{
         grid-column: 1;
         grid-row: 4;
+    }
+    #body{
+        grid-column: 1;
+        grid-row: 5;
         display: flex;
         flex-wrap: wrap;
         padding: 10px;
@@ -220,10 +259,9 @@ body {
     .card{
         margin: 0 auto;
     }
-
     #foot{
         grid-column: 1;
-        grid-row: 5;
+        grid-row: 6;
     }
 }
 

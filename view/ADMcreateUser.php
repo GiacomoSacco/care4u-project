@@ -9,7 +9,8 @@
     <body>
         <div id="cont">
             <div id="logo">
-                <h1>CARE4U</h1>
+                <!-- <h1>CARE4U</h1> -->
+                <img src="public/logo_transparent.png" alt="LOGO">
             </div>
             <div id="head">
                 <div id="nav"> 
@@ -21,17 +22,29 @@
                 </div>
             </div>
             <div id="commands">
-                <h3 onclick='showCommands()'>Create User</h3>
+                <button onclick="showCommands()" class="showMenu">Create user <i class="fa fa-angle-down" aria-hidden="true" id="menuIcon"></i></button>
                 <!-- adding users -->
                 <form action="" method="POST" class="inputForm">
-                    <label for="name">Name: </label>
-                    <input type="text" id="name" name="name" required>
-                    <label for="surname">Surname:</label>
-                    <input type="text" id="surname" name="surname" required>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
+                <div class="input">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" placeholder="Enter name" required>
+                </div>
+                <div class="input">
+                    <label for="surname">Surname</label>
+                    <input type="text" name="surname" placeholder="Enter surname" required>
+                </div>
+                <div class="input">
+                    <label for="fiscalCode">Fiscal code</label>
+                    <input type="text" name="fiscalCode" placeholder="Enter fiscal code" required>
+                </div>
+                <div class="input">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" placeholder="Enter Email" required>
+                </div>
+                <div class="input">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" placeholder="Enter Password" required><br>
+                </div>
                     <label for="role">Role:</label><br>
                     <select name="codrol" id="role">
                         <!-- <option disabled selected value> -- select an option -- </option> -->

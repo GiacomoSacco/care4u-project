@@ -61,21 +61,19 @@ class Model {
 	 * Administration.php
 	 */
 
-	public function insertUser(){
+	public function addUser($codrol, $name, $surname, $fiscalCode, $email, $password){
 		//database connection object
 		$mysqli = $this->mysqli;
-		//Getting the data from the form
-		$codrol = $_POST['codrol'];
-		$email = $_POST['email'];
-		$password = md5($_POST['password']);
-		$name = $_POST['name'];
-		$surname = $_POST['surname'];
+		//encrypting password
+		$password = md5($password);
 
 		//insert the data into the DB
-		$query = "INSERT INTO user (codrol, email, `password`, `name`, surname) 
-					VALUES ($codrol, '$email', '$password', '$name', '$surname');";
-		
-		$res = $mysqli->query($query);
+		$query = "INSERT INTO user (codrol, email, `password`, `name`, surname, fiscalcode) 
+					VALUES ($codrol, '$email', '$password', '$name', '$surname', '$fiscalCode');";
+		echo $query;
+		if($res = $mysqli->query($query)){
+			var_dump($res);
+		}
 	}
 
 	public function getRoles(){
@@ -204,6 +202,7 @@ class Model {
 
 		foreach($patients as $patient){
 			if(!in_array($patient->iduse, $pat_blacklist)){ //if patient ID isn't in the blacklist
+				$patient->role = $this->getRoleById(self::PATIENT);
 				$patients_filtered[] = $patient;			//Add him
 			}
 		}
@@ -313,7 +312,7 @@ class Model {
 		return $measurements;
 	}
 
-	public function getMeasurementsByDoctor($coddoc)
+	public function getPatMeaByDoctor($coddoc)
 	{	
 		//database connection object
 		$mysqli = $this->mysqli;

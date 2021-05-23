@@ -3,9 +3,6 @@
 
 	//starting session
 	session_start();
-	//initializing $_SESSION['login']
-	isset($_SESSION['login'])?null:$_SESSION['login']=0;
-	//isset($_SESSION['user'])?null:$_SESSION['user']=null;
 
 	//creatin controller object
 	$controller = new Controller();
@@ -31,6 +28,10 @@
 			$controller->viewpat();
 			break;
 
+		case "DOCaddpat":
+			$controller->addpat();
+			break;
+
 		case "login":
 			$controller->login();
 			break;	
@@ -41,7 +42,8 @@
 			$controller->nfc();
 			break;
 		default:
-			$controller->invoke();
+			$controller->login();
+			// $controller->invoke();
 	}
 
 

@@ -26,7 +26,7 @@ class Controller {
 		$this->loginCheck(self::ADMIN);
 		//check if a post request was sent
 		if(count($_POST)>0){
-			$this->model->insertUser();
+			$this->model->addUser($_POST["codrol"],$_POST["name"],$_POST["surname"],$_POST["fiscalCode"],$_POST["email"],$_POST["password"],);
 		}
 		$roles = $this->model->getRoles();
 
@@ -85,18 +85,38 @@ class Controller {
 	{	
 		$this->loginCheck(self::DOCTOR);
 
-		//VISUALIZE measurements
-		$patients_mea = $this->model->getMeasurementsByDoctor($_SESSION['user']->iduse);
+		//patients and measurements
+		$patients_mea = $this->model->getPatMeaByDoctor($_SESSION['user']->iduse);
 
 		include "view/DOCviewpat.php";
+	}
+	public function addpat()
+	{	
+		$this->loginCheck(self::DOCTOR);
+
+		//adding the link doctor-patient to the DB
+		if(isset($_POST["patient"])){
+			$this->model->addLinkPatDoc($_POST["patient"], $_SESSION['user']->iduse);
+		}
+		//getting the patients not linked with the selected doctor
+		$unlinked_patients = $this->model->getUnlinkedPatients($_SESSION['user']->iduse);		 
+
+		include "view/DOCaddpat.php";
 	}
 	//LOGIN
 	public function login()
 	{
-		if(isset($_POST['email'])&&isset($_POST['password'])){
-			$user = $this->model->validateLogin($_POST['email'], $_POST['password']);
-			$user->role = $this->model->getRoleById($user->codrol);
-			$_SESSION['user'] = $user;
+		if(isset($_POST['id'])){
+			switch($_POST['id']){
+				case "login":
+					$user = $this->model->validateLogin($_POST['email'], $_POST['password']);
+					$user->role = $this->model->getRoleById($user->codrol);
+					$_SESSION['user'] = $user;
+					break;
+				case "register":
+					$user = $this->model->addUser(self::PATIENT, $_POST["name"],$_POST["surname"],$_POST["fiscalCode"],$_POST["email"],$_POST["password"]);
+					break;
+			}
 		}
 		if(isset($_SESSION['user'])){
 			switch($_SESSION['user']->codrol){
