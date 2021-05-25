@@ -9,7 +9,6 @@
     <body>
         <div id="cont">
             <div id="logo">
-                <!-- <h1>CARE4U</h1> -->
                 <img src="public/logo_transparent.png" alt="LOGO">
             </div>
             <div id="head">
@@ -19,6 +18,7 @@
                 <!-- User info -->
                 <div id="userinfo">
                     <?php include "view/modules/userInfo.php"; ?>
+                    <a href="?page=logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
                 </div>
             </div>
             <div id="commands">
@@ -41,10 +41,9 @@
                     </label>
                     <label>unlink</label>
                     </div>
-                </form>
-                
-                 
+                </form> 
             </div>
+
             <div id="body">           
                 <?php 
                     if(isset($_POST["doctor"])){
@@ -78,53 +77,7 @@
                         }
                     }
                 ?>            
-
-                <!-- unlinkedPatients -->
-                <form action="" method="POST">
-                <?php
-                //     //UNLINKED patientes
-                //     if(isset($_POST["doctor"])){
-                //         //legenda
-                //         //echo "<p>UNLINKED patients with <b>".$selected_doctor->name." ".$selected_doctor->surname."</b>: (select ot ADD)</p>";
-                //         //hidden fields
-                //         echo "<input type='hidden' name='doctor' value='{$_POST['doctor']}'>";
-                //         //printing patients unlinked
-                //         foreach($unlinked_patients as $patient){
-                //             echo "<div class='card'>";
-                //             echo "<input type='radio' id='patient' name='patient' value='{$patient->iduse}' onclick='this.form.submit();'>";
-                //             echo "<label for='{$patient->iduse}'>{$patient->name} {$patient->surname}</label><br>";
-                //             echo "</div>";
-                //         }  
-                //     }    
-                    
-                // ?>
-                </form>
-
-                <!-- linkedPatients -->
-                <?php
-                // //LINKED patients
-                // if(isset($_POST["doctor"])){
-                //     //legenda
-                //     //echo "<p>LINKED patients with <b>".$selected_doctor->name." ".$selected_doctor->surname."</b>: (select to REMOVE)</p>";
-                //     //printing patients
-                //     foreach($linked_patients as $patient){
-                //         echo "<div class='card'>
-                //               <form method='POST' action=''>   
-                //                 <input type='hidden' name='REMpatientid' value='{$patient->iduse}'>
-                //                 <input type='hidden' name='REMdoctorid' value='{$selected_doctor->iduse}'>
-                //                 <label for='delete'>{$patient->name} {$patient->surname}</label>
-                //                 <button name='delete' type='submit'><i class='fa fa-close'></i></button>
-                //               </form>
-                //               </div>";
-                //     } 
-                //     echo "<a href='?page=linkpatdoc'>CANCEL</a><br>";
-                // } 
-                ?>
-
-            </div>
             <div id="foot">
-                <!-- logout -->
-                <a href="?page=logout">LOGOUT</a>
             </div>
         </div> 
     

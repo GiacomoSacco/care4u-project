@@ -110,24 +110,33 @@ class Controller {
 			switch($_POST['id']){
 				case "login":
 					$user = $this->model->validateLogin($_POST['email'], $_POST['password']);
-					$user->role = $this->model->getRoleById($user->codrol);
-					$_SESSION['user'] = $user;
+					if($user){
+						$_SESSION['user'] = $user;
+					}else{
+						$errorLOG = "Wrong email or password";
+					}
+					
 					break;
 				case "register":
 					$user = $this->model->addUser(self::PATIENT, $_POST["name"],$_POST["surname"],$_POST["fiscalCode"],$_POST["email"],$_POST["password"]);
+					if($user){
+						$_SESSION['user'] = $user;
+					} else {
+						$errorREG = "This email has already been used!";
+					}
 					break;
 			}
 		}
 		if(isset($_SESSION['user'])){
 			switch($_SESSION['user']->codrol){
 				case 1:
-					header('Location: ?page=patient');
+					header('Location: ?page=PATpatient');
 					break;
 				case 2:
 					header('Location: ?page=DOCviewpat');
 					break;
 				case 3:
-					header('Location: ?page=createUser');
+					header('Location: ?page=ADMcreateUser');
 					break;			
 			}
 		}

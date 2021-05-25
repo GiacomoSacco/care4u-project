@@ -9,16 +9,16 @@
     <body>
         <div id="cont">
             <div id="logo">
-                <!-- <h1>CARE4U</h1> -->
                 <img src="public/logo_transparent.png" alt="LOGO">
             </div>
             <div id="head">
                 <div id="nav"> 
-                    <a href="?page=linkpatdoc">Link Pat Doc</a>
+                    <a href="?page=ADMlinkpatdoc">Link Pat Doc</a>
                 </div>
                 <!-- User info -->
                 <div id="userinfo">
                     <?php include "view/modules/userInfo.php"; ?>
+                    <a href="?page=logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
                 </div>
             </div>
             <div id="commands">
@@ -45,7 +45,7 @@
                     <label for="password">Password</label>
                     <input type="password" name="password" placeholder="Enter Password" required><br>
                 </div>
-                    <label for="role">Role:</label><br>
+                    <label for="role">Role</label><br>
                     <select name="codrol" id="role">
                         <!-- <option disabled selected value> -- select an option -- </option> -->
                         <?php
@@ -64,17 +64,14 @@
                     foreach($users as $user){
                         echo "<div class='card'>";
                         echo "<img src='{$user->role->icon}' alt='icon'>";
-                        echo "<p>".$user->name."</p>";
-                        echo "<p>".$user->surname."</p>";
-                        echo "<p>".$user->email."</p>";
-                        echo "<p>".$user->role->role."</p>";
+                        echo "<p>{$user->name} {$user->surname}</p>";
+                        echo "<p>{$user->email}</p>";
+                        echo "<p>{$user->role->role}</p>";
                         echo "</div>";
                     }
                 ?>
             </div>
             <div id="foot">
-                <!-- logout -->
-                <a href="?page=logout">LOGOUT</a>
             </div>
         </div>        
     </body>

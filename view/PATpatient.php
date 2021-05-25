@@ -6,12 +6,6 @@
     </head>
 
     <body>    
-        <!-- TODO: 
-            - visualizza misurazioni del paziente
-            - visualizza account paziente
-            - logout paziente
-            - inserisci nuova misurazione   
-        -->
         <div id="cont">
             <div id="logo">
                 <img src="public/logo_transparent.png" alt="LOGO">
@@ -22,6 +16,7 @@
                 <!-- User info -->
                 <div id="userinfo">
                     <?php include "view/modules/userInfo.php"; ?>
+                    <a href="?page=logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
                 </div>
             </div>
             <div id="commands">
@@ -74,13 +69,8 @@
                 ?>
             </div>
             <div id="foot">
-                <!-- logout -->
-                <a href="?page=logout">LOGOUT</a>
+                    Sacco Giacomo AS 2020/21, Elaborato di maturità
             </div>
         </div> 
-        
-
-
-
     </body>
 </html>

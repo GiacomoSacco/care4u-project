@@ -40,23 +40,6 @@ class Model {
 		return $measurements;
 	}
 	
-	// public function getColors()
-	// {
-	// 	//database connection object
-	// 	$mysqli = $this->mysqli;
-
-	// 	//getting the color schemes
-	// 	$query = "SELECT * FROM Color;";
-	// 	$res = $mysqli->query($query);
-	// 	$colors = array();
-
-	// 	for($i=0; $i < $res->num_rows; $i++){
-	// 		$obj = $res->fetch_object();
-	// 		$colors[] = new Color($obj);
-	// 	}
-	// 	return $colors;
-	// }
-	
 	/**
 	 * Administration.php
 	 */
@@ -66,13 +49,34 @@ class Model {
 		$mysqli = $this->mysqli;
 		//encrypting password
 		$password = md5($password);
+		if($this->checkEmail($email)){
+			//insert the data into the DB
+			$query = "INSERT INTO user (codrol, email, `password`, `name`, surname, fiscalcode) 
+						VALUES ($codrol, '$email', '$password', '$name', '$surname', '$fiscalCode');";
+			if($res = $mysqli->query($query)){
+				$query = "SELECT * FROM user WHERE email = '$email';";
+				$res = $mysqli->query($query);
+				$obj = $res->fetch_object();
+				$obj->role = $this->getRoleById($obj->codrol);
+				return $obj;
+			}
+		}else{
+			//The email has already been used
+			return false;
+		}
+	}
 
-		//insert the data into the DB
-		$query = "INSERT INTO user (codrol, email, `password`, `name`, surname, fiscalcode) 
-					VALUES ($codrol, '$email', '$password', '$name', '$surname', '$fiscalCode');";
-		echo $query;
-		if($res = $mysqli->query($query)){
-			var_dump($res);
+	public function checkEmail($email){
+		//database connection object
+		$mysqli = $this->mysqli;
+		
+		$query = "SELECT * FROM user WHERE email = '$email';";
+		$res = $mysqli->query($query);
+		
+		if($res->num_rows == 0){
+			return true;	//if email has not been used yet
+		}else{	
+			return false; 	//if email has already been used
 		}
 	}
 
@@ -352,9 +356,10 @@ class Model {
 				  WHERE `email`='$email' AND `password`='$password';";
 		$res = $mysqli->query($query);
 
-		if($res){
+		if($res->num_rows == 1){
 			//TRUE: return what kind of account it is
 			$obj = $res->fetch_object();
+			$obj->role = $this->getRoleById($obj->codrol);
 			return $obj;
 		}else{
 			//FALSE: return false

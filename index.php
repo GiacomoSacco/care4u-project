@@ -12,15 +12,15 @@
 
 	//routing system
 	switch($_GET["page"]){
-		case "createUser":
+		case "ADMcreateUser":
 			$controller->create_user();
 			break;
 
-		case "linkpatdoc":
+		case "ADMlinkpatdoc":
 			$controller->link_patients_doctors();
 			break;	
 
-		case "patient":
+		case "PATpatient":
 			$controller->patient();
 			break;
 
