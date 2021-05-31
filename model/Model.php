@@ -303,7 +303,7 @@ class Model {
 		//getting all the Measurements
 		$query = "	SELECT * FROM measurement
 					WHERE codpat = $codpat
-					ORDER BY `time`";
+					ORDER BY `time` DESC";
 		$res = $mysqli->query($query);
 		$measurements = array();
 		

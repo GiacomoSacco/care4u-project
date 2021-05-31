@@ -208,6 +208,15 @@ body {
     /* text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white; */
     color:#333;
 }
+.addRemBTN{
+    font-size: 5rem;
+    display: block;
+    margin: 0 auto;
+}
+
+.linkcard, .unlinkcard{
+    padding:5%;
+}
 
 #foot{
     grid-column: 2/3;

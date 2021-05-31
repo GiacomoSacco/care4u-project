@@ -32,18 +32,20 @@
 			$controller->addpat();
 			break;
 
-		case "login":
-			$controller->login();
-			break;	
+		// case "login":
+		// 	$controller->login();
+		// 	break;	
+
 		case "logout":
 			$controller->logout();
 			break;
+
 		case "nfc":
 			$controller->nfc();
 			break;
+
 		default:
 			$controller->login();
-			// $controller->invoke();
 	}
 
 

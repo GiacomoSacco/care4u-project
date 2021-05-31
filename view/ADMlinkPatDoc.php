@@ -28,34 +28,36 @@
                     <p>Select the doctor:</p>
                 <?php
                     foreach($doctors as $doctor){
+                        echo "<form method='POST' action='' class='inputForm'>";
+                        echo "<input type='hidden' name='docname' value='{$doctor->name}'>";
+                        echo "<input type='hidden' name='docsurname' value='{$doctor->surname}'>";
                         echo "<input type='radio' name='doctor' value='{$doctor->iduse}' onclick='this.form.submit();'>";
                         echo "<label for='{$doctor->iduse}'>{$doctor->name} {$doctor->surname}</label><br>";
+                        echo "</form>";
                     }
                 ?>
                     <!-- Rounded switch -->
                     <div id="switch"> 
-                    <label>link</label>
                     <label class="switch">
                         <input type="checkbox" onclick="showLinkUnlink()" id="checkboxLink">
                         <span class="slider round"></span>
                     </label>
-                    <label>unlink</label>
                     </div>
                 </form> 
             </div>
-
+            <div id="disclaimer">
+                <p>Doctor: <?php echo "{$_POST["docname"]} {$_POST["docsurname"]}"; ?></p>
+            </div>
             <div id="body">           
                 <?php 
                     if(isset($_POST["doctor"])){
                         foreach($unlinked_patients as $patient){
                             echo "<div class='card linkcard'>
-                                    {$patient->name}
-                                    <button>LINK</button>
                                     <form method='POST' action=''>
                                         <input type='hidden' name='doctor' value='{$selected_doctor->iduse}'>   
                                         <input type='hidden' name='patient' value='{$patient->iduse}'>
                                         <label for='add'>{$patient->name} {$patient->surname}</label>
-                                        <button name='add' type='submit'><i class='fa fa-plus'></i></button>
+                                        <button name='add' type='submit' class='addRemBTN'><i class='fa fa-plus'></i></button>
                                     </form>
                                   </div>";
                         }
@@ -64,20 +66,18 @@
                 <?php        
                         foreach($linked_patients as $patient){
                             echo "<div class='card unlinkcard' style='display:none;'>
-                                    {$patient->name}
-                                    <button><i class='fa fa-close'></i>UNLINK</button>
                                     <form method='POST' action=''>
                                         <input type='hidden' name='doctor' value='{$selected_doctor->iduse}'>   
                                         <input type='hidden' name='REMpatientid' value='{$patient->iduse}'>
-                                        <input type='hidden' name='REMdoctorid' value='{$selected_doctor->iduse}'>
                                         <label for='delete'>{$patient->name} {$patient->surname}</label>
-                                        <button name='delete' type='submit'><i class='fa fa-close'></i></button>
+                                        <button name='delete' type='submit' class='addRemBTN'><i class='fa fa-minus'></i></button>
                                     </form>
                                   </div>";
                         }
                     }
                 ?>            
             <div id="foot">
+                <p>Sacco Giacomo AS 2020/21, Elaborato di maturità</p>
             </div>
         </div> 
     

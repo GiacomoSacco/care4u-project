@@ -39,7 +39,7 @@ class Controller {
 		$this->loginCheck(self::ADMIN);
 		
 		//REMOVE LINKS
-		if(isset($_POST["REMdoctorid"]) && isset($_POST["REMpatientid"])){
+		if(isset($_POST["doctor"]) && isset($_POST["REMpatientid"])){
 			$this->model->removeLinkPatDoc();
 		}
 
@@ -129,13 +129,13 @@ class Controller {
 		}
 		if(isset($_SESSION['user'])){
 			switch($_SESSION['user']->codrol){
-				case 1:
+				case self::PATIENT:
 					header('Location: ?page=PATpatient');
 					break;
-				case 2:
+				case self::DOCTOR:
 					header('Location: ?page=DOCviewpat');
 					break;
-				case 3:
+				case self::ADMIN:
 					header('Location: ?page=ADMcreateUser');
 					break;			
 			}
@@ -153,7 +153,7 @@ class Controller {
 		}else{
 			//and if he has the permissions to access the page
 			if(!($role == $_SESSION['user']->codrol)){
-				header('Location: ?page=accessdenied');
+				header('Location: ?page=login');
 			}
 		}
 	}
@@ -166,7 +166,6 @@ class Controller {
 	public function nfc(){
 		if(isset($_GET['email'])&&isset($_GET['password'])){
 			if($user = $this->model->validateLogin($_GET['email'], $_GET['password'])){
-				$user->role = $this->model->getRoleById($user->codrol);
 				$_SESSION['user'] = $user;
 				header('Location: ?page=login');
 			}else{

@@ -69,7 +69,7 @@
                 ?>
             </div>
             <div id="foot">
-                    Sacco Giacomo AS 2020/21, Elaborato di maturità
+                <p>Sacco Giacomo AS 2020/21, Elaborato di maturità</p>
             </div>
         </div> 
     </body>
