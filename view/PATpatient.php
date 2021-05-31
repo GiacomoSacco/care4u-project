@@ -1,14 +1,13 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
-        <title>CARE4U</title>
-        <?php include "view/modules/style.php";?>
-        <script src="view/js/global.js"></script>
+        <?php include "view/modules/head.php";?>
     </head>
 
     <body>    
         <div id="cont">
             <div id="logo">
-                <img src="public/logo_transparent.png" alt="LOGO">
+                <a href="https://github.com/GiacomoSacco/care4u-maturity" target="_blank"><img src="public/logo_transparent.png" alt="LOGO"></a>
             </div>
             <div id="head">
                 <div id="nav"> 
@@ -47,7 +46,6 @@
                 <span>Your measurements</span>
             </div>
             <div id="body">
-                <!-- TODO: view measurements -->
                 <?php 
                     
                     foreach($measurements as $measurement){
@@ -69,7 +67,7 @@
                 ?>
             </div>
             <div id="foot">
-                <p>Sacco Giacomo AS 2020/21, Elaborato di maturità</p>
+                <?php include "view/modules/foot.php";?>
             </div>
         </div> 
     </body>

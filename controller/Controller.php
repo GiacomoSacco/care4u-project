@@ -13,13 +13,6 @@ class Controller {
 
     } 
 
-	//VIEWS
-	public function invoke()
-	{
-		include "view/homepage.php";
-	}
-
-
 	//ADMIN
 	public function create_user()
 	{	
@@ -71,9 +64,6 @@ class Controller {
 		if(!empty($_POST["ph"])&&!empty($_POST["chlorides"])&&!empty($_POST["lactic_acid"])&&!empty($_POST["glucose"])){
 			$this->model->addMeasurement($_SESSION["user"]->iduse,$_POST["ph"],$_POST["chlorides"],$_POST["lactic_acid"],$_POST["glucose"]);
 		}
-
-		//array of the doctors linked to the session user
-		//$linked_doctors = $this->model->getLinkedDoctors($_SESSION["user"]->iduse);
 
 		//VISUALIZE measurements
 		$measurements = $this->model->getMeasurementsByPatient($_SESSION['user']->iduse);

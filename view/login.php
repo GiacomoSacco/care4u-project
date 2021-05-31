@@ -1,9 +1,7 @@
-<html>
+<html lang="en">
     <head>
-        <title>CARE4U</title>
-        <?php include "view/modules/style.php";?>
+        <?php include "view/modules/head.php";?>
         <link rel="stylesheet" href="view/css/logreg.css">
-        <script src="view/js/global.js"></script>
     </head>
 
     <body>
@@ -44,7 +42,7 @@
                         </div>
                         <div class="input">
                             <label for="fiscalCode"><i class="fa fa-address-card-o" aria-hidden="true"></i>  Fiscal code</label>
-                            <input type="text" name="fiscalCode" placeholder="Enter fiscal code" required>
+                            <input type="text" name="fiscalCode" placeholder="Enter fiscal code" minlength="16" maxlength="16" required>
                         </div>
                         <div class="input">
                             <label for="email"><i class="fa fa-envelope-o" aria-hidden="true"></i>  Email</label>

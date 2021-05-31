@@ -49,6 +49,7 @@ class Model {
 		$mysqli = $this->mysqli;
 		//encrypting password
 		$password = md5($password);
+		$email = strtolower($email);
 		if($this->checkEmail($email)){
 			//insert the data into the DB
 			$query = "INSERT INTO user (codrol, email, `password`, `name`, surname, fiscalcode) 
@@ -69,7 +70,7 @@ class Model {
 	public function checkEmail($email){
 		//database connection object
 		$mysqli = $this->mysqli;
-		
+		$email = strtolower($email);
 		$query = "SELECT * FROM user WHERE email = '$email';";
 		$res = $mysqli->query($query);
 		
@@ -348,6 +349,7 @@ class Model {
 		//database connection object
 		$mysqli = $this->mysqli;
 
+		$email = strtolower($email);
 		//encrypting
 		$password=md5($password);
 
