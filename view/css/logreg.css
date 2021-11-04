@@ -1,0 +1,97 @@
+body{
+    background-image: none;
+    background-color: #333333;
+}
+#logincont{
+    margin:0;
+    display: grid;
+    grid-template-columns:  50vw 50vw;
+    grid-template-rows: 100vh;
+}
+#infos  {
+    grid-row: 1;
+    display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
+}
+#infos img{
+    max-width: 50vw;
+    max-height: 70vh;
+}
+#registerBTN{
+    border-radius: 0px;
+    background-color: #333333;
+    color: #5CDB95;
+}
+#loginBTN{
+    border-radius: 0px;
+}
+#form{
+    background-color: #333333;
+    grid-row: 1;
+    display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
+}
+#login > input[type=submit]{
+    background-color: #EDF5E1;
+    border: none;
+    padding: .7rem 1.7rem;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color:#333333;
+    border-radius: 10px 0 10px 0;
+}
+#login > input[type=submit]:hover{
+    background-color: #5CDB95;
+}
+#register > input[type=submit]{
+    background-color: #EDF5E1;
+    border: none;
+    padding: .7rem 1.7rem;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color:#333333;
+    border-radius: 10px 0 10px 0;
+}
+#register > input[type=submit]:hover{
+    background-color: #5CDB95;
+}
+.input{
+    display: grid;
+    grid-template-columns: 30% 70%;
+}
+.input label{
+    width: 100%;
+}
+.input input{
+    width: 100%;
+    padding-top: 1vh;
+}
+
+#register{
+    display: none;
+}
+@media only screen and (max-width: 500px) {
+    #logincont{
+        grid-template-columns: 100vw;
+        grid-template-rows: 40vh 60vh;
+        font-size: .8rem;
+    }
+    #infos{
+        grid-column: 1;
+        grid-row: 1;
+    }
+    #infos img{
+        max-height: 50vh;
+    }
+    #form{
+        grid-column: 1;
+        grid-row: 2;
+        align-items: start; /* align vertical */
+    }
+}
